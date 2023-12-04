@@ -1,3 +1,15 @@
+const {JSDOM} = require('jsdom');
+
+function getURLsFromHTMl(htmlBody, baseURL){
+    const urls = [];
+    const dom = new JSDOM(htmlBody);
+    const linkElements = dom.window.document.querySelectorAll("a");
+    for (const linkElement of linkElements){
+        urls.push(normalizeURL(linkElement.href));
+    }
+    return urls;
+}
+
 function normalizeURL(urlSting){
     const urlObj = new URL(urlSting)
 
@@ -10,5 +22,7 @@ function normalizeURL(urlSting){
 }
 
 module.exports = {
-    normalizeURL
+    normalizeURL,
+    getURLsFromHTMl
+
 }
