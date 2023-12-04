@@ -38,8 +38,51 @@ test('getURLsFromHTML absolute', () => {
         </body>
     </html>
     `
-    const baseURL = "test.com/test";
+    const baseURL = "https://test.com";
     const actual = getURLsFromHTMl(inputHTMLBody, baseURL);
-    const expected = ["test.com/test"];
+    const expected = ["https://test.com/test"];
     expect(actual).toEqual(expected);
   })
+
+test('getURLsFromHTML relative', () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="/test">Test Website</a>
+        </body>
+    </html>
+    `
+    const baseURL = "https://test.com";
+    const actual = getURLsFromHTMl(inputHTMLBody, baseURL);
+    const expected = ["https://test.com/test"];
+    expect(actual).toEqual(expected);
+  })
+
+test('getURLsFromHTML multipleUrls', () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="https://test.com/test1">Test Website</a>
+            <a href="/test2">Test Website</a>
+        </body>
+    </html>
+    `
+    const baseURL = "https://test.com";
+    const actual = getURLsFromHTMl(inputHTMLBody, baseURL);
+    const expected = ["https://test.com/test1","https://test.com/test2"];
+    expect(actual).toEqual(expected);
+})
+
+test('getURLsFromHTML invalidURL', () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="test">Test Website</a>
+        </body>
+    </html>
+    `
+    const baseURL = "https://test.com";
+    const actual = getURLsFromHTMl(inputHTMLBody, baseURL);
+    const expected = [];
+    expect(actual).toEqual(expected);
+})
