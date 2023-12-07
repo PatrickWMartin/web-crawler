@@ -12,7 +12,26 @@ function sortPages(pages){
 
 }
 
+function printReport(pages){
+    console.log("==========================");
+    console.log("REPORT");
+    console.log("==========================");
+
+    const sortedPages = sortPages(pages);
+    for (const sortedPage of sortedPages){
+        const url = sortedPage[0];
+        const numOfHits = sortedPage[1];
+
+        console.log(`Found ${numOfHits} links to page: ${url}`);
+    }
+
+    console.log("==========================");
+    console.log("END REPORT");
+    console.log("==========================");
+}
+
 
 module.exports = {
-    sortPages
+    sortPages,
+    printReport
 }
